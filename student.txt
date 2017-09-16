@@ -1,0 +1,9 @@
+StudentA	studenta@cs.ualberta.ca
+StudentB	studentb@cs.ualberta.ca
+StudentC	studentc@cs.ualberta.ca
+StudentA	studenta@cs.ualberta.ca
+StudentB	studentb@cs.ualberta.ca
+StudentC	studentc@cs.ualberta.ca
+StudentA	studenta@cs.ualberta.ca
+StudentB	studentb@cs.ualberta.ca
+StudentC	studentc@cs.ualberta.ca

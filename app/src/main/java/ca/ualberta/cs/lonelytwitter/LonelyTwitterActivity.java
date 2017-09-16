@@ -54,6 +54,12 @@ public class LonelyTwitterActivity extends Activity {
 				Log.d("TWEET",newTweet.getMessage());
 
 				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+				tweetList.add(newTweet);
+				tweetList.add(newTweet2);
+				for (Tweet t: tweetList){
+
+					Log.d("Some Tag", "The isImportant method on this object returns " + t.isImportant());
+				}
 
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				finish();
