@@ -24,7 +24,10 @@ public class LonelyTwitterActivity extends Activity {
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-	
+
+	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+	private ArrayAdapter<Tweet> adapter;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,27 +44,30 @@ public class LonelyTwitterActivity extends Activity {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
 
-				Tweet newTweet = new NormalTweet("Hello");
-				ImportantTweet newTweet2 = new ImportantTweet("Hello2",new Date());
+				tweets.add(new NormalTweet(text));
+				adapter.notifyDataSetChanged();
 
-				newTweet2.getDate();
+//				Tweet newTweet = new NormalTweet("Hello");
+//				ImportantTweet newTweet2 = new ImportantTweet("Hello2",new Date());
+//
+//				newTweet2.getDate();
+//
+//				try{
+//					newTweet.setMessage("Goodbye");
+//				} catch (TweetTooLongException e){
+//
+//				}
+//				Log.d("TWEET",newTweet.getMessage());
+//
+//				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+//				tweetList.add(newTweet);
+//				tweetList.add(newTweet2);
+//				for (Tweet t: tweetList){
+//
+//					Log.d("Some Tag", "The isImportant method on this object returns " + t.isImportant());
+//				}
 
-				try{
-					newTweet.setMessage("Goodbye");
-				} catch (TweetTooLongException e){
-
-				}
-				Log.d("TWEET",newTweet.getMessage());
-
-				ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
-				tweetList.add(newTweet);
-				tweetList.add(newTweet2);
-				for (Tweet t: tweetList){
-
-					Log.d("Some Tag", "The isImportant method on this object returns " + t.isImportant());
-				}
-
-				saveInFile(text, new Date(System.currentTimeMillis()));
+				//saveInFile(text, new Date(System.currentTimeMillis()));
 				//finish();
 
 			}
@@ -72,9 +78,10 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		String[] tweets = loadFromFile();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				R.layout.list_item, tweets);
+		adapter = new ArrayAdapter<Tweet>(this, R.layout.list_item, tweets);
+//		String[] tweets = loadFromFile();
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
 	}
 
