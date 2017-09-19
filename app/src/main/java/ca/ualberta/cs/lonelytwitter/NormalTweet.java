@@ -17,6 +17,6 @@ public class NormalTweet extends Tweet implements Tweetable{
 
     @Override
     public Boolean isImportant() {
-        return null;
+        return Boolean.FALSE;
     }
 }
