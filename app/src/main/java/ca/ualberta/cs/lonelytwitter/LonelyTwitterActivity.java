@@ -80,7 +80,17 @@ public class LonelyTwitterActivity extends Activity {
 		super.onStart();
 		//loadFromFile(); // TODO replace this with elastic search
 		ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
-		getTweetsTask.execute("");
+
+		String text = "pretty";//bodyText.getText().toString();
+		String query = "{\n" +
+				" \"from\" : 0, \"size\" : 10, \n"+
+				"  \"query\": { \n" +
+				" \"term\" : { \"message\" : \"" + text + "\" }\n" +
+				" 	}\n" +
+				"}";
+
+		getTweetsTask.execute(query);
+
 		try{
 			tweetList = getTweetsTask.get();
 		}
