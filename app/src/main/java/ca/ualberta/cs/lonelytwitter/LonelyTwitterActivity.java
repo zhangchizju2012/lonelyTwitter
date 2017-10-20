@@ -13,12 +13,15 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,6 +33,11 @@ public class LonelyTwitterActivity extends Activity {
 	private ListView oldTweetsList;
 	private ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
 	private ArrayAdapter<Tweet> adapter;
+	private LonelyTwitterActivity activity = this;
+
+	public ListView getOldTweetsList(){
+		return oldTweetsList;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,40 @@ public class LonelyTwitterActivity extends Activity {
 				saveInFile();
 			}
 		});
+
+		Button clearButton = (Button) findViewById(R.id.clear);
+
+		clearButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				tweetList.clear();
+				deleteFile(FILENAME);
+				adapter.notifyDataSetChanged();
+			}
+		});
+
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// 1019: check: https://github.com/AmyShanLu/lonelyTwitter/commit/e6a24f060c9a3a56fc4bc640e332e99e3e72e774
+
+				//Intent intent = new Intent(activity, EditTweetActivity.class);
+				//startActivity(intent);
+
+				Intent newActivity = new Intent(LonelyTwitterActivity.this,EditTweetActivity.class);
+				// https://stackoverflow.com/questions/10407159/how-to-manage-startactivityforresult-on-android
+				String tweet_message = ((TextView) view).getText().toString();
+				//Tweet selectedTweet = (Tweet) oldTweetsList.getItemAtPosition(position);
+				//String tweet_message = selectedTweet.getMessage();
+
+				newActivity.putExtra("data",tweet_message);
+				//newActivity.putExtra("position",Integer.toString(position));
+				//startActivityForResult(newActivity, 2);
+				startActivity(newActivity);
+			}
+		});
+
 	}
 
 	@Override
